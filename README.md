@@ -7,7 +7,7 @@ Configurar una arquitectura en AWS para soportar un modelo de transcripción bas
 - `Docker`: 
 
 ### Getting Started
-A continuación, presento los pasos principales con scripts `[Terraform](https://www.terraform.io/)` (`/tf/main.tf`) que puedes replicar para implementar la misma arquitectura planteada.
+A continuación, presento los pasos principales con scripts [`Terraform`](https://www.terraform.io/) (`/tf/main.tf`) que puedes replicar para implementar la misma arquitectura planteada.
 ```bash
     terraform init
     terraform validate
@@ -28,7 +28,7 @@ Terraform mostrará los valores como el ID del bucket S3, el nombre del clúster
     value = aws_instance.ml_ec2.id
     }
 ```
-En general, la arquitectura planteada es la siguiente, `[Diagrama Excalidraw](https://excalidraw.com/)`,
+En general, la arquitectura planteada es la siguiente [`Excalidraw Source`](https://excalidraw.com/),
 ![cloud_infrastructure](assets/terraform.png)
 
 
@@ -63,7 +63,7 @@ CREATE TABLE transcription_results (
 
 ### Permisos IAM
 Roles y políticas necesarias para acceder a S3 y Redshift.
-![IAM Polities](assets\iam.png)
+![IAM Polities](assets/iam.png)
 1. VPC Lambda: Configurar Lambda para ejecutarse en la misma VPC con los subnets y security groups adecuados.
 2. S3 Event Notification: Configura el bucket S3 para que active un evento cuando se suba un archivo:
    - **Evento:** `s3:ObjectCreated: *`.
@@ -180,9 +180,9 @@ Con esta estrategia, los microservicios pueden responder dinámicamente a la car
 
 
 # More Resources
--  `[GitHub Actions](https://docs.github.com/es/actions/)`
--  `[Grafana Documentation](https://grafana.com/docs/)`
--  `[Cloudwatch Documentation](https://docs.aws.amazon.com/cloudwatch/)`
--  `[AWS Documentation](https://docs.aws.amazon.com/)`
--  `[AWS CLI Documentation](https://docs.aws.amazon.com/cli/index.html/)`
--  `[AWS Support](https://console.aws.amazon.com/support/home#/)`
+-  [`GitHub Actions`](https://docs.github.com/es/actions/)
+-  [`Grafana Documentation`](https://grafana.com/docs/)
+-  [`Cloudwatch Documentation`](https://docs.aws.amazon.com/cloudwatch/)
+-  [`AWS Documentation`](https://docs.aws.amazon.com/)
+-  [`AWS CLI Documentation`](https://docs.aws.amazon.com/cli/index.html/)
+-  [`AWS Support`](https://console.aws.amazon.com/support/home#/)
