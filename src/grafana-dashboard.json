@@ -1,0 +1,25 @@
+{
+    "title": "EKS Cluster Monitoring",
+    "panels": [
+        {
+            "type": "graph",
+            "title": "CPU Utilization",
+            "targets": [
+                {
+                    "namespace": "EKS/ContainerInsights",
+                    "metricName": "node_cpu_utilization"
+                }
+            ]
+        },
+        {
+            "type": "graph",
+            "title": "Lambda Error Count",
+            "targets": [
+                {
+                    "namespace": "AWS/Lambda",
+                    "metricName": "Errors"
+                }
+            ]
+        }
+    ]
+}
