@@ -18,4 +18,4 @@ spec:
       - name: transcriptor
         image: juancastillos/transcriptor:latest
         ports:
-        - containerPort: 5000
+        - containerPort: 8000
