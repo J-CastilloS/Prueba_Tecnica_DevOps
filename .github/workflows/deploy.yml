@@ -44,7 +44,7 @@ jobs:
 
       - name: Configure kubeconfig
         run: |
-          aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.AWS_EKS_NAME }}
+          aws eks update-kubeconfig --region us-east-2 --name devops-cluster--eks
           
       - name: Deploy to Kubernetes
         run: |
