@@ -28,6 +28,7 @@ jobs:
   #         source .venv/bin/activate
   #         pytest --maxfail=1 --disable-warnings -q
   
+
   build-and-push:
     runs-on: ubuntu-latest
     steps:
@@ -45,6 +46,7 @@ jobs:
           docker build -t juancastillos/transcriptor:latest .
           docker push juancastillos/transcriptor:latest
 
+          
   deploy:
     runs-on: ubuntu-latest
     needs: build-and-push
