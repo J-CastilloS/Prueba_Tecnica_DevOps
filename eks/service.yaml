@@ -1,18 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: transcriptor
+  name: service-transcriptor
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  type: NodePort
+  selector:
+    app.kubernetes.io/name: app-transcriptor
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: fastapi-ingress
+  namespace: transcriptor
+  name: ingress-transcriptor
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/subnets: subnet-12345678,subnet-87654321
 spec:
   rules:
-  - host: eks.18.216.240.244.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: transcriptor-service
-            port:
-              number: 80
+    - http:
+        paths:
+        - path: /*
+          pathType: Prefix
+          backend:
+            service:
+              name: service-transcriptor
+              port:
+                number: 80
