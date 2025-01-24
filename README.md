@@ -41,8 +41,6 @@ aws eks create-cluster \
 De forma automática, se asignará una VPC con subredes según los parámetros por defecto, aunque es posible personalizarlos a nivel de usuario o rol.
 
 ### **Arquitectura propuesta**
-
-La arquitectura planteada es la siguiente:  
 ![[Excalidraw Source](https://excalidraw.com/)](assets/architecture.jpg)
 
 
