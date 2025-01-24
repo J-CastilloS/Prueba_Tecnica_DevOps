@@ -22,6 +22,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/subnets: subnet-12345678,subnet-87654321
 spec:
+  ingressClassName: alb
   rules:
     - http:
         paths:

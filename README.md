@@ -36,7 +36,7 @@ En general, la arquitectura planteada es la siguiente [`Excalidraw Source`](http
 ## 2. Pipeline de CI/CD
 Una solución basada en **GitHub Actions** que implementa un pipeline CI/CD para el despliegue de un modelo de transcripción en un clúster de EKS. Este pipeline incluye pruebas unitarias, construcción de imágenes Docker y despliegue automatizado.
    ```bash
-   eksctl create cluster --name transcriptor-cluster --region us-west-2
+   eksctl create cluster -f eks/cluster-config.yaml
    ```
 ### Configuration
 1. **Secretos en GitHub**: `AWS_ACCESS_KEY_ID` y `AWS_SECRET_ACCESS_KEY` son credenciales de AWS.
