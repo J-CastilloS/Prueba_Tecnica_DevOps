@@ -58,26 +58,22 @@ El pipeline está basado en **GitHub Actions** y permite la integración continu
    - `AWS_ACCESS_KEY_ID` y `AWS_SECRET_ACCESS_KEY`: Credenciales de AWS para gestionar los recursos (EKS).  
    - `DOCKER_USERNAME` y `DOCKER_TOKEN`: Credenciales de DockerHub para acceder y subir imágenes.  
 
-2. **Manifiestos de Kubernetes:**  
-   Los manifiestos para EKS se encuentran en la carpeta `./eks` e incluyen configuraciones detalladas según la documentación oficial de EKS Quickstart.
+2. **Manifiestos de Kubernetes:** Los manifiestos para EKS se encuentran en la carpeta `./eks` e incluyen configuraciones detalladas según la documentación oficial de EKS Quickstart.
 
-3. **Workflow de GitHub Actions:**  
-   En el archivo `.github/workflows/deploy.yml` se especifican los jobs necesarios para la integración y el despliegue.
+3. **Workflow de GitHub Actions:** En el archivo `.github/workflows/deploy.yml` se especifican los jobs necesarios para la integración y el despliegue.
 
 
 ## **3. Gestión de Datos y Data Warehouse**
 
 El pipeline consta de tres componentes principales:
 
-1. **Extracción de datos desde S3:**  
-   Un evento en S3 (subida de un archivo) activa una función Lambda.  
+1. **Extracción de datos desde S3:** Un evento en S3 (subida de un archivo) activa una función Lambda.  
 
 2. **Procesamiento de datos con Lambda Functions:**  
    - La función Lambda procesa las grabaciones (transcripción, extracción de metadatos, etc.).  
    - Los resultados se formatean como tablas (`TABLE`) para ser cargados.  
 
-3. **Carga de datos en Amazon Redshift:**  
-   La función Lambda utiliza `psycopg2.connect` para cargar los datos procesados al datalake.
+3. **Carga de datos en Amazon Redshift:** La función Lambda utiliza `psycopg2.connect` para cargar los datos procesados al datalake.
 
 ### **Amazon Redshift**
 
@@ -92,13 +88,15 @@ CREATE TABLE transcripts (
 
 ### **Permisos IAM**
 
-Se requieren roles y políticas para acceder a S3 y Redshift:  
+Se requieren roles y políticas para acceder a S3 y Redshift.
+
 ![IAM Policies](assets/identities.png)
 
 1. **VPC Lambda:** Configurada para ejecutarse en la misma VPC, con subredes y grupos de seguridad adecuados.  
 2. **Notificación de eventos en S3:**  
    - **Evento:** `s3:ObjectCreated:*`  
-   - **Destino:** `Lambda Function`
+   - **Proceso:** `Lambda Function`
+   - **Destino:** `Redshift database`
 
 ### **Variables de entorno**
 
@@ -149,20 +147,16 @@ fields @timestamp, @message
    - Asignar permisos mínimos necesarios a cada credencial.  
    - Usar roles IAM temporales en lugar de credenciales estáticas.  
 
-4. **Rotación automática de credenciales:**  
-   - Implementar rotación periódica y automática de credenciales.  
+4. **Rotación automática de credenciales:** Implementar rotación periódica y automática de credenciales.  
 
 
 ### **2. Estrategia para escalar dinámicamente los microservicios según la carga de trabajo**
 
-1. **Horizontal Pod Autoscaler (HPA):**  
-   Escalar el número de pods en Kubernetes según métricas como CPU o memoria.  
+1. **Horizontal Pod Autoscaler (HPA):** Escalar el número de pods en Kubernetes según métricas como CPU o memoria.  
 
-2. **Vertical Pod Autoscaler (VPA):**  
-   Ajustar los recursos asignados (CPU/memoria) a los pods según la carga de trabajo.  
+2. **Vertical Pod Autoscaler (VPA):** Ajustar los recursos asignados (CPU/memoria) a los pods según la carga de trabajo.  
 
-3. **Escalado basado en eventos:**  
-   Usar herramientas como **KEDA** para escalar según eventos como mensajes en una cola (SQS, Kafka) o solicitudes HTTP.  
+3. **Escalado basado en eventos:** Usar herramientas como **KEDA** para escalar según eventos como mensajes en una cola (SQS, Kafka) o solicitudes HTTP.  
 
 4. **Pruebas de carga:**  
    - Realizar pruebas para determinar los límites del sistema.  
