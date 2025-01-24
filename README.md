@@ -2,15 +2,13 @@
 
 Este documento detalla cómo configurar una arquitectura en AWS para soportar un modelo de transcripción basado en IA. Es necesario configurar credenciales de AWS mediante `aws-cli` para gestionar recursos.
 
----
 
 ## **Requisitos**
 
 - **Python:** 3.8.x o superior  
 - **Terraform:** 1.10.4 o la versión más reciente  
-- **Docker** y **DockerHub**
+- **Docker:** sin versionamiento
 
----
 
 ## **1. Infraestructura en la Nube**
 
@@ -47,7 +45,6 @@ De forma automática, se asignará una VPC con subredes según los parámetros p
 La arquitectura planteada es la siguiente:  
 ![[Excalidraw Source](https://excalidraw.com/)](assets/architecture.jpg)
 
----
 
 ## **2. Pipeline de CI/CD**
 
@@ -69,7 +66,6 @@ El pipeline está basado en **GitHub Actions** y permite la integración continu
 3. **Workflow de GitHub Actions:**  
    En el archivo `.github/workflows/deploy.yml` se especifican los jobs necesarios para la integración y el despliegue.
 
----
 
 ## **3. Gestión de Datos y Data Warehouse**
 
@@ -116,7 +112,6 @@ Se requieren roles y políticas para acceder a S3 y Redshift:
 - `REDSHIFT_TABLE`  
 - `EKS_ENDPOINT`
 
----
 
 ## **4. Monitoreo y Observabilidad**
 ![CloudWatch Dashboard](assets/dashboard.png)
@@ -139,7 +134,6 @@ fields @timestamp, @message
 | sort @timestamp desc
 ```
 
----
 
 ## **5. Preguntas Teóricas**
 
@@ -160,7 +154,6 @@ fields @timestamp, @message
 4. **Rotación automática de credenciales:**  
    - Implementar rotación periódica y automática de credenciales.  
 
----
 
 ### **2. Estrategia para escalar dinámicamente los microservicios según la carga de trabajo**
 
@@ -179,7 +172,6 @@ fields @timestamp, @message
 
 Esta estrategia asegura que los microservicios se adapten dinámicamente a la carga, manteniendo la disponibilidad y optimizando el uso de recursos.
 
----
 
 ## **Recursos adicionales**
 
@@ -187,5 +179,3 @@ Esta estrategia asegura que los microservicios se adapten dinámicamente a la ca
 - [**AWS CLI Documentation**](https://docs.aws.amazon.com/cli/)  
 - [**AWS EKS Quickstart Documentation**](https://docs.aws.amazon.com/eks/latest/userguide/quickstart.html/)  
 - [**CloudWatch Documentation**](https://docs.aws.amazon.com/cloudwatch/)  
-
----
