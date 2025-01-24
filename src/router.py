@@ -1,5 +1,5 @@
-from src.model.entitites.response import TranscriptResponse
-from src.model.main import Transcriptor
+from src.model.entities.response import TranscriptResponse
+from model.transcriptor import Transcriptor
 import speech_recognition as sr
 from fastapi import APIRouter
 
@@ -7,8 +7,8 @@ from fastapi import APIRouter
 router = APIRouter()
 Transcriptor = Transcriptor()
 
-@router.post("/data_parquet")
-async def data_parquet(
+@router.post("/transcript_audio")
+async def transcript_audio(
     audio_file: sr.AudioFile,
 ) -> TranscriptResponse:
     """
